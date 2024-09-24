@@ -32,7 +32,6 @@ export default function AddSponsor() {
     if (!formData.fullname) {
       validationErrors.fullname = "Fullname is required";
     }
-
     if (!formData.username) {
       validationErrors.username = "Username is required";
     }
