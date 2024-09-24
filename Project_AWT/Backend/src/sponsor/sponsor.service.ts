@@ -74,9 +74,9 @@ export class SponsorService {
     }
     
 
-    getAllSponsors(): Promise<SponsorEntity[]> {
-        return this.sponsorRepo.find();
-    }
+    // getAllSponsors(): Promise<SponsorEntity[]> {
+    //     return this.sponsorRepo.find();
+    // }
 
     async updateSponsor(myobj: SponsorUpdateDto, id: number): Promise<object> {
         
@@ -164,6 +164,11 @@ export class SponsorService {
             }
         });
     }
+
+    getAllSponsors(): Promise<SponsorEntity[]> {
+        return this.sponsorRepo.find();
+      }
+      
 
 
     

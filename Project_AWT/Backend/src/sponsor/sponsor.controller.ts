@@ -213,6 +213,19 @@ async getEventById(@Param('id', ParseIntPipe) id: number): Promise<EventEntity> 
 }
 
 
+@Get('showAllSponsors')
+async showAllSponsors(): Promise<SponsorEntity[]> {
+  try {
+    return await this.sponsorService.getAllSponsors();
+  } catch (error) {
+    throw new HttpException(
+      { message: 'Error fetching all sponsors', error: error.message },
+      HttpStatus.INTERNAL_SERVER_ERROR,
+    );
+  }
+}
+
+
 
   @Get('geteventdetails')
   async getAllEvent(): Promise<EventEntity[]> {
