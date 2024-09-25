@@ -54,6 +54,36 @@ export class SponsorUpdateDto {
   password?: string;
 }
 
+
+@Entity('register') 
+export class RegisterEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ length: 100 })
+  fullname: string;
+
+  @Column({ length: 50, unique: true })
+  username: string;
+
+  @Column({ length: 100, unique: true })
+  email: string;
+
+  @Column({ length: 15 })
+  phonenumber: string;
+
+  @Column({ length: 10 })
+  gender: string;
+
+  @Column()
+  password: string;
+
+  @OneToMany(() => EventEntity, (event) => event.sponsor)
+  events: EventEntity[];
+}
+
+
+
 @Entity('coorentity')
 export class CoorEntity {
   @PrimaryGeneratedColumn()
@@ -74,3 +104,4 @@ export class CoorEntity {
   // @OneToMany(() => EventEntity, event => event.coor, { cascade: true })
   // events: EventEntity[];
 }
+

@@ -18,7 +18,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { SponsorService } from './sponsor.service';
-import { CoorDto, CreateSponsorDto, SponsorDto, SponsorUpdateDto } from './sponsor.dto';
+import { CoorDto, CreateSponsorDto, RegisterSponsorDto, SponsorDto, SponsorUpdateDto } from './sponsor.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterError, diskStorage } from 'multer';
 import { CoorEntity, SponsorEntity } from './sponsor.entity';
@@ -224,6 +224,20 @@ async showAllSponsors(): Promise<SponsorEntity[]> {
     );
   }
 }
+
+
+@Post('register')
+  @UsePipes(new ValidationPipe())
+  async registerSponsor(@Body() data: RegisterSponsorDto): Promise<SponsorEntity> {
+    try {
+      return await this.sponsorService.registerSponsor(data);
+    } catch (error) {
+      throw new HttpException(
+        { message: 'Error registering sponsor', error: error.message },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 
 
 

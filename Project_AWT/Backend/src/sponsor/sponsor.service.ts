@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { CoorDto, SponsorDto, loginDto } from "./sponsor.dto";
+import { CoorDto, RegisterSponsorDto, SponsorDto, loginDto } from "./sponsor.dto";
 import { CoorEntity, SponsorEntity, SponsorUpdateDto } from "./sponsor.entity";
 import { CreateSponsorDto } from "./sponsor.dto";
 import { Repository, } from "typeorm";
@@ -164,6 +164,32 @@ export class SponsorService {
             }
         });
     }
+
+
+    async registerSponsor(myobj: RegisterSponsorDto): Promise<SponsorEntity> {
+        // Check if username or email already exists
+        const existingSponsor = await this.sponsorRepo.findOne({
+          where: [{ username: myobj.username }],
+        });
+      
+        if (existingSponsor) {
+          throw new HttpException(
+            'Username or email already exists',
+            HttpStatus.CONFLICT,
+          );
+        }
+      
+        // Hash the password before saving the sponsor
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(myobj.password, salt);
+        myobj.password = hashedPassword;
+      
+        // Create and save the new sponsor entity
+        const sponsor = this.sponsorRepo.create(myobj);
+        return this.sponsorRepo.save(sponsor);
+      }
+    
+
 
     getAllSponsors(): Promise<SponsorEntity[]> {
         return this.sponsorRepo.find();

@@ -1,4 +1,4 @@
-import { IsDateString, IsEmail, IsNotEmpty, IsString, IsUrl, Matches } from 'class-validator';
+import { IsDateString, IsEmail, IsEnum, IsNotEmpty, IsString, IsUrl, Matches } from 'class-validator';
 
 export class CreateSponsorDto {
   @IsString()
@@ -58,3 +58,52 @@ export class SponsorUpdateDto {
   'address': string;
 }
 
+// export class RegisterSponsorDto {
+//   @IsNotEmpty()
+//   fullname: string;
+
+//   @IsNotEmpty()
+//   username: string;
+
+//   @IsEmail()
+//   email: string;
+
+//   @IsNotEmpty()
+//   phonenumber: string;
+
+//   @IsNotEmpty()
+//   @IsEnum(['male', 'female', 'other'])
+//   gender: string;
+  
+//   @IsString()
+//   password: string;
+  
+// }
+
+export class RegisterSponsorDto {
+  @IsString()
+  @IsNotEmpty()
+  fullname: string;
+
+  @IsString()
+  @IsNotEmpty()
+  
+  username: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+
+  @IsNotEmpty()
+  phonenumber: string;
+
+  @IsString()
+  @IsNotEmpty()
+  gender: string;
+
+  @IsString()
+  @IsNotEmpty()
+ 
+  password: string;
+}
